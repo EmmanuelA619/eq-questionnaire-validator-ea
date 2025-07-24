@@ -30,8 +30,11 @@ jobs:
           echo "TAG=$CLEAN_TAG" >> $GITHUB_ENV
 
       - name: Build Docker image
-        run: |
-          docker build -t ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-runner:$TAG .
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-validator:${{ env.TAG }}
+          load: true
 
       - name: Authenticate Docker with GAR
         run: |
@@ -39,4 +42,4 @@ jobs:
 
       - name: Push to Google Artifact Registry
         run: |
-          docker push ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-runner:$TAG
+          docker push ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-validator:$TAG
