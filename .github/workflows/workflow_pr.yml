@@ -73,12 +73,14 @@ jobs:
           CLEAN_TAG=$(echo "${{ github.event.pull_request.head.ref  }}"  | tr / -)
           echo "TAG=$CLEAN_TAG" >> $GITHUB_ENV
 
+      
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
-          tags: ${{ secrets.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-validator:${{ env.TAG }}
+          tags: europe-west2-docker.pkg.dev/eq-emmanuel-sandbox/docker-images/eq-questionnaire-validator:test-1
           load: true
+
 
       - name: Push to GAR
         run: |
