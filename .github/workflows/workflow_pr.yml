@@ -1,4 +1,4 @@
-name: PR
+name: Build & Push Validator Image
 
 on:
   pull_request:
@@ -86,8 +86,12 @@ jobs:
         run: |
           CLEAN_TAG=$(echo "${{ github.event.pull_request.head.ref  }}"  | tr / -)
           echo "TAG=$CLEAN_TAG" >> $GITHUB_ENV
-      - name: Build
-        run: docker build -t ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-validator:$TAG .
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-validator:${{ env.TAG }}
+          load: true
 
       - name: Push to GAR
         run: |
