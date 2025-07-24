@@ -84,6 +84,7 @@ jobs:
 
       - name: Push to GAR
         run: |
-          gcloud auth configure-docker ${{ secrets.GAR_LOCATION }}
+          gcloud auth configure-docker europe-west2-docker.pkg.dev
           echo "Pushing to GAR with tag $TAG"
-          docker push ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-validator:$TAG
+          docker push europe-west2-docker.pkg.dev/eq-emmanuel-sandbox/docker-images/eq-questionnaire-validator:$TAG
+
