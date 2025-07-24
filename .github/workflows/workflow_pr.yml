@@ -26,9 +26,9 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
       - name: Install dependencies
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
-        run: go get
+        run: go mod download
       - name: Build
-        run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo
+        run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
   lint:
     permissions:
       contents: read
