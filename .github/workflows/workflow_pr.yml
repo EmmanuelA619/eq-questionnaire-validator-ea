@@ -77,7 +77,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          tags: ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-validator:${{ env.TAG }}
+          tags: ${{ secrets.GAR_LOCATION }}-docker.pkg.dev/${{ secrets.GAR_PROJECT_ID }}/docker-images/eq-questionnaire-validator:${{ env.TAG }}
           load: true
 
       - name: Push to GAR
